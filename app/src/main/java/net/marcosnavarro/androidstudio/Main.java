@@ -7,8 +7,11 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -24,6 +27,8 @@ public class Main extends Activity {
     private ArrayList<String> arrayList;
     private TextView no_result;
     private ArrayAdapter<String> adapter;
+    private LinearLayout linearlayoutHide;
+    private LinearLayout.LayoutParams paramsLinearLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,6 +39,8 @@ public class Main extends Activity {
         relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
         listView = (ListView) findViewById(R.id.listView);
         no_result = (TextView) findViewById(R.id.no_result);
+        linearlayoutHide = (LinearLayout) findViewById(R.id.linearlayoutHide);
+        paramsLinearLayout = (LinearLayout.LayoutParams) linearlayoutHide.getLayoutParams();
 
         arrayList = new ArrayList<String>();
         arrayList.add("Berlín");
@@ -54,11 +61,12 @@ public class Main extends Activity {
         arrayList.add("Praga");
 
         adapter = new ArrayAdapter<String>(this,android.R.layout.simple_list_item_1, arrayList);
-
+        //listView.setBackgroundColor(getResources().getColor(android.R.color.white));
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                Helper.getListViewSize(listView);
+                //Helper.overlay(listView,paramsLinearLayout);
             }
 
             @Override
@@ -78,7 +86,6 @@ public class Main extends Activity {
             }
         });
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
